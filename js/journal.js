@@ -12,6 +12,21 @@ Entry.prototype.wordCount = function(body) {
   }
   return count + 1;
 }
+
+Entry.prototype.vowelCount = function(body) {
+  var totalVowels = 0;
+  var totalConsonants = 0;
+  for (var i = 0; i < body.length; i++) {
+    if (body.charAt(i).match(/[aeiou]/gi)) {
+      totalVowels++;
+    }
+    else if (body.charAt(i).match(/[qwrtpsdfghjklzxcvbnmy]/gi)) {
+      totalConsonants++;
+    }
+  }
+  var output = [totalVowels, totalConsonants];
+  return output;
+}
 //front end logic
 
 $(document).ready(function() {
@@ -21,7 +36,8 @@ $(document).ready(function() {
     var title = $('#title').val();
     var newEntry = new Entry();
     var newCount = newEntry.wordCount(body);
-    $('#output').append(title + "<br>" + newCount + "<br>");
+    var vowelNumbers = newEntry.vowelCount(body);
+    $('#output').append(title + "<br>" + newCount + "<br>" + vowelNumbers[0] + "<br>" + vowelNumbers[1]);
     // $('.journal').append(body);
   });
 });
